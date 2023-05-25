@@ -1,6 +1,3 @@
-
-# IMPORTANT: implement the comments made by Luky
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware # Too allow all origins when frontend connects to backend
 from pymongo import MongoClient
