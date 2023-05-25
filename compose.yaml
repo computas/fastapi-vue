@@ -1,0 +1,41 @@
+services:
+  api:
+    build:
+      context: ./backend
+      target: builder
+    image: computas-fastapi
+    container_name: fastapi
+    hostname: fastapi
+    environment:
+      PORT: 8000
+    ports:
+      - '8000:8000'
+    restart: "no"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    hostname: mongodb
+    restart: always
+    volumes:
+      - /home/mlhag/Work/datastore/mongodb:/data/db
+    ports:
+      - 27017:27017
+
+  frontend:
+    build: ./frontend
+    image: computas-vuefrontend
+    container_name: vuefrontend
+    hostname: vuefrontend
+    volumes:
+      - './frontend/frontend-app:/app'
+      - '/app/node_modules'
+    ports:
+      - 80:8080
+    depends_on:
+      - api
+
+
+
